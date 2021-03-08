@@ -1,0 +1,27 @@
+---
+name: "Automated Pre-Release"
+
+on:
+  push:
+    tags:
+      - "v*-TA-pre*"
+
+jobs:
+  pre-release:
+    name: "Build Pre-Release"
+    runs-on: "windows-latest"
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: "Build StructurePlacer"
+        run: |
+          "./.github/rojo.exe" build --output ./StructurePlacer.rbxm
+        shell: cmd
+
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          prerelease: true
+          files: |
+            ./StructurePlacer.rbxm
