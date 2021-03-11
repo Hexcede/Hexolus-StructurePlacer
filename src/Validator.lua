@@ -13,6 +13,7 @@ local region = Region3.new()
 local partsInRange = {}
 
 local collider = Instance.new("Part")
+collider.Archivable = false
 collider.Name = "Collider"
 collider.Transparency = 1
 --collider.CanCollide = false
