@@ -7,7 +7,6 @@ function Validator:IsPartOOB(part)
 	return not CollectionService:HasTag(part, "Hitbox") and PhysicsService:CollisionGroupsAreCollidable("Default", PhysicsService:GetCollisionGroupName(part.CollisionGroupId))
 end
 
-local function void()end
 local position, size = Vector3.new(), Vector3.new()
 local region = Region3.new()
 local partsInRange = {}
@@ -17,7 +16,7 @@ collider.Name = "Collider"
 collider.Transparency = 1
 --collider.CanCollide = false
 collider.Anchored = true
-collider.Touched:Connect(void)
+collider.Touched:Connect(function()end)
 
 PhysicsService:SetPartCollisionGroup(collider, "PlacementCollisionGroup")
 
@@ -27,7 +26,7 @@ function Validator:Collides(part, ignoreDescendantsInstances, useCollisionTag, p
 	if not passRegion3Check then
 		position, size = part.Position, part.Size
 
-		region = Region3.new(position - size/2, position + size/2)
+		region = Region3.new(position - size / 2, position + size / 2)
 		--region:ExpandToGrid(4)
 		
 		partsInRange = workspace:FindPartsInRegion3WithIgnoreList(region, ignoreDescendantsInstances, 1)[1]
@@ -91,7 +90,7 @@ function Validator:ModelCollides(model, ignoreDescendantsInstances)
 	end
 	local position = cframe.Position
 	
-	local region = Region3.new(position - size/2, position + size/2)
+	local region = Region3.new(position - size / 2, position + size / 2)
 	--region:ExpandToGrid(4)
 
 	local reparent
